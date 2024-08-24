@@ -32,7 +32,7 @@ def vectorBuildW(frase, claveWord):
     return np.array(vectorW)
     
 
-print (vectorBuildW(frases[1], claveWord))
+#print (vectorBuildW(frases[1], claveWord))
 
 def vectorBuildS(frase, claveWord):
     positivo, neutral, negativo = 0, 0, 0
@@ -45,4 +45,38 @@ def vectorBuildS(frase, claveWord):
             negativo += 1
     return np.array([positivo, neutral, negativo])
 
-print (vectorBuildS(frases[1], claveWord))
+#print (vectorBuildS(frases[1], claveWord))
+
+
+def calidadPromedio(vectorW):
+    suma = sum(vectorW)
+    totalPalabras = len(vectorW)
+    result = suma / totalPalabras
+    return result
+
+#print(calidadPromedio(vectorW= vectorBuildW(frases[1], claveWord)))
+
+
+def promedioSentimiento(vectorS):
+    vector = np.array([1, 0, -1])
+    return np.dot(vector, vectorS)
+ 
+#print(promedioSentimiento(vectorS= vectorBuildS(frases[8], claveWord)))
+
+totalVectoresW = []
+totalVectoresS = []
+
+for w in frases:
+    vectorW = vectorBuildW(w, claveWord)
+    vectorS = vectorBuildS(w, claveWord)
+
+    totalVectoresW.append(vectorW)
+    totalVectoresS.append(vectorS)
+
+    calidad = calidadPromedio(vectorW)
+    promSentimiento = promedioSentimiento(vectorS)
+
+    print(f'Frase: "{w}"')
+    print(f'Calidad promedio: {calidad:.2f}')
+    print(f'Promedio de sentimiento: {promSentimiento}')
+    print(f'Palabras positivas: {vectorS[0]}, Neutras: {vectorS[1]}, Negativas: {vectorS[2]}\n')
