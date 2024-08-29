@@ -1,7 +1,7 @@
 import numpy as np
 
 frases = [
-    "Excelente en su área, su muerte es una enorme pérdida y debería ser luto nacional",
+    "Excelente en su área, su muerte es una enorme pérdida y debería ser luto luto luto luto luto nacional",
     "Estoy muy feliz con los resultados obtenidos en el examen",
     "El clima está terrible hoy, no me gusta para nada",
     "Es un gran avance para la ciencia",
@@ -28,9 +28,11 @@ claveWord = {
 def vectorBuildW(frase, claveWord):
     vectorW = []
     for palabra in claveWord['positiva'] + claveWord['negativa'] + claveWord['neutra']:
-        vectorW.append(frase.lower().count(palabra))
+        if palabra in frase.lower().split():
+            vectorW.append(1)
+        else:
+            vectorW.append(0)
     return np.array(vectorW)
-    
 
 #print (vectorBuildW(frases[1], claveWord))
 
@@ -69,7 +71,7 @@ totalVectoresS = []
 for w in frases:
     vectorW = vectorBuildW(w, claveWord)
     vectorS = vectorBuildS(w, claveWord)
-
+    
     totalVectoresW.append(vectorW)
     totalVectoresS.append(vectorS)
 
