@@ -65,15 +65,17 @@ def promedioSentimiento(vectorS):
  
 #print(promedioSentimiento(vectorS= vectorBuildS(frases[8], claveWord)))
 
-totalVectoresW = []
-totalVectoresS = []
+def calidadSentimiento(vectorS):
+    total = sum(vectorS)
+    if total == 0:
+        return [0, 0, 0]
+    else:
+        return [v / total for v in vectorS]
+
 
 for w in frases:
     vectorW = vectorBuildW(w, claveWord)
     vectorS = vectorBuildS(w, claveWord)
-    
-    totalVectoresW.append(vectorW)
-    totalVectoresS.append(vectorS)
 
     calidad = calidadPromedio(vectorW)
     promSentimiento = promedioSentimiento(vectorS)
@@ -82,3 +84,4 @@ for w in frases:
     print(f'Calidad promedio: {calidad:.2f}')
     print(f'Promedio de sentimiento: {promSentimiento}')
     print(f'Palabras positivas: {vectorS[0]}, Neutras: {vectorS[1]}, Negativas: {vectorS[2]}\n')
+    print(f'Calidad de sentimiento: {calidadSentimiento(vectorS)}\n')
